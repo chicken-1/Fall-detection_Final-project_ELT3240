@@ -1,6 +1,6 @@
 #include "MKL46Z4.h"
 #include "I2C.h"
-#include "LED_SW1.h" 
+#include "LED_SW_Systick.h" 
 
 uint32_t volatile msTicks1 = 0;
 uint32_t volatile msTicks2 = 0;
@@ -15,16 +15,27 @@ void SysTick_Handler()
 {
 	if (mode == NORMAL_MODE)
 	{
-		PTD->PTOR |= 1 << 5;         // tongle led green
+		//
 		msTicks1++;
-		while(msTicks1 < 1000);
-		msTicks1 = 0;
+		if (msTicks1 == 1000)
+		{
+			PTD->PTOR |= 1 << 5;         // tongle led green
+			msTicks1 = 0;
+		}
 	} else if (mode == FALL_DETECTED_MODE)
 	{
-		PTE->PTOR |= 1 << 29;				//tongle led red
 		msTicks2++;
-		while(msTicks2 < 500);
-		msTicks2 = 0;
+		if (msTicks2 == 500)
+		{
+			PTE->PTOR |= 1 << 29;				//tongle led red
+			msTicks2 = 0;
+		}
+		msTicks1++;
+		if (msTicks1 == 1000)
+		{
+			PTD->PTOR |= 1 << 5;         // tongle led green
+			msTicks1 = 0;
+		}
 	} else if (mode == STOP_MODE)
 	{
 		PTD->PDOR |= 1 << 5; 	// turn led green off
@@ -36,26 +47,6 @@ void SysTick_Handler()
 
 void PORTC_PORTD_IRQHandler() 
 {
-	// if SW1 is pressed
-	/*if (PORTC->PCR[3] & 1 << 24) 
-	{
-		mode = ~mode;
-		if (mode) {
-		// active mode: led _green blinking
-		PTD->PTOR |= 1 << 5;         // tongle led             
-		Delay(1000);
-		} 
-		else {
-			PTD->PDOR |= 1 << 5; 	//turn LED off
-		}
-	}
-	
-	// if SW2 is pressed
-	if (PORTC->PCR[12] & 1 << 24)
-	{
-		fallCheck = 0x0;
-		PTE->PDOR |= 1 << 29;		//turn LED red off
-	}*/
 	// if SW1 is pressed
 	if (PORTC->PCR[3] & 1 << 24)
 	{
@@ -72,13 +63,28 @@ void PORTC_PORTD_IRQHandler()
 			mode = STOP_MODE;
 			//SysTick->CTRL &=0;
 		}
+		PTD->PCOR |= 1 << 5;  
+		PORTC->PCR[3] |=   1 << 24; 	// clear interrupt
 	}
 	
 	// if SW2 is pressed - normal mode
 	if (PORTC->PCR[12] & 1 << 24)
 	{
-		
+		mode = NORMAL_MODE;
+		PTD->PCOR |= 1 << 5;  
+		PORTC->PCR[12] |=   1 << 24; 	// clear interrupt
 	}
+	
+	// if detect fall, interrupt in PTD1
+	if (PORTD->PCR[1] & 1 << 24)
+	{
+		if (mode == NORMAL_MODE)
+		{
+			mode = FALL_DETECTED_MODE;
+		}
+		PORTD->PCR[1] |=   1 << 24; 	// clear interrupt
+		uint8_t dt = receive(0x16);		// read 0x16 -> clear interrupt on mma
+	}	
 	
 }
 
@@ -87,13 +93,15 @@ int main(void)
 	initLED_RED();
 	initLED_GREEN();
 	initSW1();
+	initSystick();
 	initSW2();
-	InitI2C();
+	initI2C();
+	initINT2();
 	configMMA84512Q();
-	
+	uint8_t data;
 	while(1)
 	{
-		
+		//data = receive(0x0D);
 	}
 }
 

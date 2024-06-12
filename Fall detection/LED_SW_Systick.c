@@ -1,11 +1,12 @@
 #include "MKL46Z4.h"
-#include "LED_SW1.h"
+#include "LED_SW_Systick.h"
 
 void initLED_RED()
 {
-	SIM->SCGC5 |= 1 << 13;		// enable clock to PORTE
+	SIM->SCGC5 |= 1 << 13;		// enable clock to PORT E
 	PORTE->PCR[29] |= 1 << 8;	// set PTE29 to GPIO
 	PTE->PDDR |= 1 << 29;			// set PTE29 as an output 
+	PTE->PDOR |= 1 << 29;			// turn led off
 }
 
 void initLED_GREEN()
@@ -13,14 +14,15 @@ void initLED_GREEN()
 	SIM->SCGC5 |= 1 << 12;		//enables clock to port D
 	PORTD->PCR[5] |= 1 << 8;	//set PTD5 to GPIO
 	PTD->PDDR |= 1 << 5;			//set PTD5 as an output
+	PTD->PDOR |= 1 << 5;			// turn led off
 }
 
 void initSW1()
 {
 	SIM->SCGC5 |= 1 << 11;												//enables clock to port C
  	PORTC->PCR[3] |= (1 << 8 | 1 << 1 | 1);				//set PTC3 to GPIO, enable pull-up & pull-select 
-	PTC->PDDR &= 0 << 3; 													//set PTC3 as an input
-	PORTC->PCR[3] |= 1010 << 16; 									//select falling edge interrupts for PORTC[3] (trigger interrupt when press SW1)
+	PTC->PDDR &= ~((uint32_t)1 << 3); 													//set PTC3 as an input
+	PORTC->PCR[3] |= (0xA) << 16; 									//select falling edge interrupts for PORTC[3] (trigger interrupt when press SW1)
 	NVIC_ClearPendingIRQ(31);											//clear NVIC any pending interrupts on PORTC_D
 	NVIC_EnableIRQ(31);														//enable NVIC interrupts source for PORTC_D
 }
@@ -29,8 +31,8 @@ void initSW2()
 {
 	SIM->SCGC5 |= 1 << 11;												//enables clock to port C
  	PORTC->PCR[12] |= (1 << 8 | 1 << 1 | 1);			//set PTC12 to GPIO, enable pull-up & pull-select 
-	PTC->PDDR &= 0 << 12; 												//set PTC12 as an input
-	PORTC->PCR[12] |= 1010 << 16; 								//select falling edge interrupts for PORTC[12] (trigger interrupt when press SW2)
+	PTC->PDDR &= ~((uint32_t)0 << 12); 												//set PTC12 as an input
+	PORTC->PCR[12] |= (0xA) << 16; 								//select falling edge interrupts for PORTC[12] (trigger interrupt when press SW2)
 	NVIC_ClearPendingIRQ(31);											//clear NVICany pending interrupts on PORTC_D
 	NVIC_EnableIRQ(31);														// enable NVIC interrupts source for PORTC_D
 
