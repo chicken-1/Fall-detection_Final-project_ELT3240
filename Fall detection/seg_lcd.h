@@ -25,12 +25,9 @@
 void slcd_init(void);
 void slcd_set_digit(uint32_t digit, uint32_t val);
 void slcd_clear_digit(uint32_t digit);
-void slcd_set_dp(uint32_t pos);
-void slcd_clear_dp(uint32_t pos);
-void slcd_set_colon(void);
-void slcd_clear_colon(void);
-void slcd_diplay_hex(uint16_t num);
-void slcd_display_time(uint32_t hour, uint32_t min);
+void slcd_clear_all(void);
+void slcd_print_fall_msg(void);
+void slcd_print_on_msg(void);
 void slcd_display_decimal(uint32_t num);
 
 

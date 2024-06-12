@@ -1,3 +1,8 @@
+/*
+ * seg_lcd.c
+ *
+ */
+
 #include "seg_lcd.h"
 #include "MKL46Z4.h"
 
@@ -22,7 +27,7 @@ void slcd_init(void)
 	LCD->GCR &= ~LCD_GCR_LCDEN_MASK; /* disable driving LCD  */
 
  	/* Pin muxing for slcd on FRDM-KL46 board */
-		 // From Reference manual, set pins to MUX 0 for normal LCD display operation, only use MUX 7 if using LCD fault detection
+	// From Reference manual, set pins to MUX 0 for normal LCD display operation, only use MUX 7 if using LCD fault detection
  	PORTB->PCR[7]  = PORT_PCR_MUX(0u);     //Set PTB7 to LCD_P7
  	PORTB->PCR[8]  = PORT_PCR_MUX(0u);     //Set PTB8 to LCD_P8
  	PORTB->PCR[10] = PORT_PCR_MUX(0u);     //Set PTB10 to LCD_P10
@@ -210,39 +215,48 @@ void slcd_clear_digit(uint32_t digit)
 	}
 }
 
-/* Funtion to set decimal point at given position
- * 	pos: 0 to 2 (0 => leftmost in the diplay, DP 1)
- */
-void slcd_set_dp(uint32_t pos)
+/* Function to clear all front plane pins */
+void slcd_clear_all(void)
 {
-	if (pos < 3) {
-		LCD->WF8B[lcd_fp_pins[pos][1]] |= SEG_DP;
+	for(int i = 0; i < 4; i++) 
+	{
+		LCD->WF8B[lcd_fp_pins[i][0]] = 0x0;
+		LCD->WF8B[lcd_fp_pins[i][1]] = 0x0;
 	}
 }
 
-
-/* Funtion to clear decimal point at given position
- * 	pos: 0 to 2 (0 => leftmost in the diplay, DP1)
- */
-void slcd_clear_dp(uint32_t pos)
+/* Function to display "FALL" message */
+void slcd_print_fall_msg(void)
 {
-	if (pos < 3) {
-		LCD->WF8B[lcd_fp_pins[pos][1]] &= ~SEG_DP;
-	}
+	slcd_clear_all();
+	// F
+	LCD->WF8B[lcd_fp_pins[0][0]] = SEG_E | SEG_F | SEG_G;
+	LCD->WF8B[lcd_fp_pins[0][1]] = SEG_A;
+	
+	// A
+	LCD->WF8B[lcd_fp_pins[1][0]] = SEG_E | SEG_F | SEG_G;
+	LCD->WF8B[lcd_fp_pins[1][1]] = SEG_A | SEG_B | SEG_C;
+	
+	// L
+	LCD->WF8B[lcd_fp_pins[2][0]] = SEG_D | SEG_E | SEG_F;
+	LCD->WF8B[lcd_fp_pins[2][1]] = 0x0;
+	
+	// L
+	LCD->WF8B[lcd_fp_pins[3][0]] = SEG_D | SEG_E | SEG_F;
+	LCD->WF8B[lcd_fp_pins[3][1]] = 0x0;
 }
 
-
-/* Funtion to set colon segment */
-void slcd_set_colon(void)
+/* Function to display "ON" message */
+void slcd_print_on_msg(void)
 {
-	LCD->WF8B[lcd_fp_pins[3][1]] |= SEG_COL;
-}
-
-
-/* Funtion to clear colon segment */
-void slcd_clear_colon(void)
-{
-	LCD->WF8B[lcd_fp_pins[3][1]] &= ~SEG_COL;
+	slcd_clear_all();
+	// O
+	LCD->WF8B[lcd_fp_pins[2][0]] = SEG_D | SEG_E | SEG_F;
+	LCD->WF8B[lcd_fp_pins[2][1]] = SEG_A | SEG_B | SEG_C;
+	
+	// N
+	LCD->WF8B[lcd_fp_pins[3][0]] = SEG_E | SEG_F;
+	LCD->WF8B[lcd_fp_pins[3][1]] = SEG_A | SEG_B | SEG_C;
 }
 
 /* Funtion to display decimal number (no leading zeros)
