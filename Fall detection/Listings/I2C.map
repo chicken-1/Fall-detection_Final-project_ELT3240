@@ -5,23 +5,26 @@ Component: ARM Compiler 5.06 update 7 (build 960) Tool: armlink [4d3601]
 Section Cross References
 
     i2c.o(i.configMMA84512Q) refers to i2c.o(i.transmit) for transmit
-    i2c.o(i.configMMA84512Q) refers to i2c.o(i.recieve) for recieve
-    i2c.o(i.recieve) refers to i2c.o(i.writeI2C) for writeI2C
+    i2c.o(i.configMMA84512Q) refers to i2c.o(i.receive) for receive
+    i2c.o(i.receive) refers to i2c.o(i.writeI2C) for writeI2C
     i2c.o(i.transmit) refers to i2c.o(i.writeI2C) for writeI2C
-    led_sw1.o(i.initSW1) refers to led_sw1.o(i.__NVIC_ClearPendingIRQ) for __NVIC_ClearPendingIRQ
-    led_sw1.o(i.initSW1) refers to led_sw1.o(i.__NVIC_EnableIRQ) for __NVIC_EnableIRQ
-    led_sw1.o(i.initSW2) refers to led_sw1.o(i.__NVIC_ClearPendingIRQ) for __NVIC_ClearPendingIRQ
-    led_sw1.o(i.initSW2) refers to led_sw1.o(i.__NVIC_EnableIRQ) for __NVIC_EnableIRQ
-    led_sw1.o(i.initSystick) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
-    led_sw1.o(i.initSystick) refers to system_mkl46z4.o(.data) for SystemCoreClock
+    main.o(i.PORTC_PORTD_IRQHandler) refers to i2c.o(i.receive) for receive
     main.o(i.PORTC_PORTD_IRQHandler) refers to main.o(.data) for mode
     main.o(i.SysTick_Handler) refers to main.o(.data) for mode
-    main.o(i.main) refers to led_sw1.o(i.initLED_RED) for initLED_RED
-    main.o(i.main) refers to led_sw1.o(i.initLED_GREEN) for initLED_GREEN
-    main.o(i.main) refers to led_sw1.o(i.initSW1) for initSW1
-    main.o(i.main) refers to led_sw1.o(i.initSW2) for initSW2
-    main.o(i.main) refers to i2c.o(i.InitI2C) for InitI2C
+    main.o(i.main) refers to led_sw_systick.o(i.initLED_RED) for initLED_RED
+    main.o(i.main) refers to led_sw_systick.o(i.initLED_GREEN) for initLED_GREEN
+    main.o(i.main) refers to led_sw_systick.o(i.initSW1) for initSW1
+    main.o(i.main) refers to led_sw_systick.o(i.initSystick) for initSystick
+    main.o(i.main) refers to led_sw_systick.o(i.initSW2) for initSW2
+    main.o(i.main) refers to i2c.o(i.initI2C) for initI2C
+    main.o(i.main) refers to i2c.o(i.initINT2) for initINT2
     main.o(i.main) refers to i2c.o(i.configMMA84512Q) for configMMA84512Q
+    led_sw_systick.o(i.initSW1) refers to led_sw_systick.o(i.__NVIC_ClearPendingIRQ) for __NVIC_ClearPendingIRQ
+    led_sw_systick.o(i.initSW1) refers to led_sw_systick.o(i.__NVIC_EnableIRQ) for __NVIC_EnableIRQ
+    led_sw_systick.o(i.initSW2) refers to led_sw_systick.o(i.__NVIC_ClearPendingIRQ) for __NVIC_ClearPendingIRQ
+    led_sw_systick.o(i.initSW2) refers to led_sw_systick.o(i.__NVIC_EnableIRQ) for __NVIC_EnableIRQ
+    led_sw_systick.o(i.initSystick) refers to aeabi_sdiv.o(.text) for __aeabi_uidivmod
+    led_sw_systick.o(i.initSystick) refers to system_mkl46z4.o(.data) for SystemCoreClock
     startup_mkl46z4.o(RESET) refers to startup_mkl46z4.o(.text) for Reset_Handler
     startup_mkl46z4.o(RESET) refers to main.o(i.SysTick_Handler) for SysTick_Handler
     startup_mkl46z4.o(RESET) refers to main.o(i.PORTC_PORTD_IRQHandler) for PORTC_PORTD_IRQHandler
@@ -156,18 +159,16 @@ Removing Unused input sections from the image.
 
     Removing i2c.o(.rev16_text), (4 bytes).
     Removing i2c.o(.revsh_text), (4 bytes).
-    Removing led_sw1.o(.rev16_text), (4 bytes).
-    Removing led_sw1.o(.revsh_text), (4 bytes).
-    Removing led_sw1.o(i.initSystick), (36 bytes).
     Removing main.o(.rev16_text), (4 bytes).
     Removing main.o(.revsh_text), (4 bytes).
+    Removing led_sw_systick.o(.rev16_text), (4 bytes).
+    Removing led_sw_systick.o(.revsh_text), (4 bytes).
     Removing system_mkl46z4.o(.rev16_text), (4 bytes).
     Removing system_mkl46z4.o(.revsh_text), (4 bytes).
     Removing system_mkl46z4.o(i.SystemCoreClockUpdate), (400 bytes).
-    Removing system_mkl46z4.o(.data), (4 bytes).
     Removing system_mkl46z4.o(i.__ARM_common_switch8), (28 bytes).
 
-12 unused section(s) (total 500 bytes) removed from the image.
+10 unused section(s) (total 460 bytes) removed from the image.
 
 ==============================================================================
 
@@ -178,66 +179,66 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      192  startup_mkl46z4.o(RESET)
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry7.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0_sigfpe.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
     ../clib/angel/scatterp.s                 0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  tempstk.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
-    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
-    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
+    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
+    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv.o ABSOLUTE
     ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv_div0.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit5.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit5.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../fplib/cfplib/fpinit.c                 0x00000000   Number         0  fpinit.o ABSOLUTE
     I2C.c                                    0x00000000   Number         0  i2c.o ABSOLUTE
     I2C.c                                    0x00000000   Number         0  i2c.o ABSOLUTE
-    LED_SW1.c                                0x00000000   Number         0  led_sw1.o ABSOLUTE
-    LED_SW1.c                                0x00000000   Number         0  led_sw1.o ABSOLUTE
+    LED_SW_Systick.c                         0x00000000   Number         0  led_sw_systick.o ABSOLUTE
+    LED_SW_Systick.c                         0x00000000   Number         0  led_sw_systick.o ABSOLUTE
     Main.c                                   0x00000000   Number         0  main.o ABSOLUTE
     Main.c                                   0x00000000   Number         0  main.o ABSOLUTE
     RTE/Device/MKL46Z256VLL4/startup_MKL46Z4.s 0x00000000   Number         0  startup_mkl46z4.o ABSOLUTE
@@ -293,29 +294,33 @@ Image Symbol Table
     .ARM.Collect$$rtexit$$00000003           0x0000048e   Section        4  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
     .ARM.Collect$$rtexit$$00000004           0x00000492   Section        6  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
     .text                                    0x00000498   Section      156  startup_mkl46z4.o(.text)
-    .text                                    0x00000534   Section        0  exit.o(.text)
-    .text                                    0x00000544   Section        0  sys_exit.o(.text)
-    .text                                    0x00000550   Section        2  use_no_semi.o(.text)
-    .text                                    0x00000552   Section        0  indicate_semi.o(.text)
-    i.InitI2C                                0x00000554   Section        0  i2c.o(i.InitI2C)
-    i.PORTC_PORTD_IRQHandler                 0x000005c0   Section        0  main.o(i.PORTC_PORTD_IRQHandler)
-    i.SysTick_Handler                        0x0000061c   Section        0  main.o(i.SysTick_Handler)
-    i.SystemInit                             0x000006c4   Section        0  system_mkl46z4.o(i.SystemInit)
-    i.SystemInitHook                         0x000006d8   Section        0  system_mkl46z4.o(i.SystemInitHook)
-    i.__NVIC_ClearPendingIRQ                 0x000006dc   Section        0  led_sw1.o(i.__NVIC_ClearPendingIRQ)
-    __NVIC_ClearPendingIRQ                   0x000006dd   Thumb Code    18  led_sw1.o(i.__NVIC_ClearPendingIRQ)
-    i.__NVIC_EnableIRQ                       0x000006f4   Section        0  led_sw1.o(i.__NVIC_EnableIRQ)
-    __NVIC_EnableIRQ                         0x000006f5   Thumb Code    26  led_sw1.o(i.__NVIC_EnableIRQ)
-    i.configMMA84512Q                        0x00000714   Section        0  i2c.o(i.configMMA84512Q)
-    i.initLED_GREEN                          0x0000075c   Section        0  led_sw1.o(i.initLED_GREEN)
-    i.initLED_RED                            0x00000790   Section        0  led_sw1.o(i.initLED_RED)
-    i.initSW1                                0x000007c4   Section        0  led_sw1.o(i.initSW1)
-    i.initSW2                                0x00000818   Section        0  led_sw1.o(i.initSW2)
-    i.main                                   0x0000086c   Section        0  main.o(i.main)
-    i.recieve                                0x00000888   Section        0  i2c.o(i.recieve)
-    i.transmit                               0x00000930   Section        0  i2c.o(i.transmit)
-    i.writeI2C                               0x000009b0   Section        0  i2c.o(i.writeI2C)
+    .text                                    0x00000534   Section      346  aeabi_sdiv.o(.text)
+    .text                                    0x0000068e   Section        0  exit.o(.text)
+    .text                                    0x000006a0   Section        0  sys_exit.o(.text)
+    .text                                    0x000006ac   Section        2  use_no_semi.o(.text)
+    .text                                    0x000006ae   Section        0  indicate_semi.o(.text)
+    i.PORTC_PORTD_IRQHandler                 0x000006b0   Section        0  main.o(i.PORTC_PORTD_IRQHandler)
+    i.SysTick_Handler                        0x0000078c   Section        0  main.o(i.SysTick_Handler)
+    i.SystemInit                             0x00000858   Section        0  system_mkl46z4.o(i.SystemInit)
+    i.SystemInitHook                         0x0000086c   Section        0  system_mkl46z4.o(i.SystemInitHook)
+    i.__NVIC_ClearPendingIRQ                 0x00000870   Section        0  led_sw_systick.o(i.__NVIC_ClearPendingIRQ)
+    __NVIC_ClearPendingIRQ                   0x00000871   Thumb Code    18  led_sw_systick.o(i.__NVIC_ClearPendingIRQ)
+    i.__NVIC_EnableIRQ                       0x00000888   Section        0  led_sw_systick.o(i.__NVIC_EnableIRQ)
+    __NVIC_EnableIRQ                         0x00000889   Thumb Code    18  led_sw_systick.o(i.__NVIC_EnableIRQ)
+    i.configMMA84512Q                        0x000008a0   Section        0  i2c.o(i.configMMA84512Q)
+    i.initI2C                                0x000008e8   Section        0  i2c.o(i.initI2C)
+    i.initINT2                               0x00000954   Section        0  i2c.o(i.initINT2)
+    i.initLED_GREEN                          0x000009c8   Section        0  led_sw_systick.o(i.initLED_GREEN)
+    i.initLED_RED                            0x00000a08   Section        0  led_sw_systick.o(i.initLED_RED)
+    i.initSW1                                0x00000a48   Section        0  led_sw_systick.o(i.initSW1)
+    i.initSW2                                0x00000a9c   Section        0  led_sw_systick.o(i.initSW2)
+    i.initSystick                            0x00000aec   Section        0  led_sw_systick.o(i.initSystick)
+    i.main                                   0x00000b10   Section        0  main.o(i.main)
+    i.receive                                0x00000b34   Section        0  i2c.o(i.receive)
+    i.transmit                               0x00000c20   Section        0  i2c.o(i.transmit)
+    i.writeI2C                               0x00000cd0   Section        0  i2c.o(i.writeI2C)
     .data                                    0x1fffe000   Section        9  main.o(.data)
+    .data                                    0x1fffe00c   Section        4  system_mkl46z4.o(.data)
 
     Global Symbols
 
@@ -453,32 +458,39 @@ Image Symbol Table
     UART1_DriverIRQHandler                   0x000004eb   Thumb Code     0  startup_mkl46z4.o(.text)
     UART2_DriverIRQHandler                   0x000004eb   Thumb Code     0  startup_mkl46z4.o(.text)
     USB0_IRQHandler                          0x000004eb   Thumb Code     0  startup_mkl46z4.o(.text)
-    exit                                     0x00000535   Thumb Code    16  exit.o(.text)
-    _sys_exit                                0x00000545   Thumb Code     8  sys_exit.o(.text)
-    __I$use$semihosting                      0x00000551   Thumb Code     0  use_no_semi.o(.text)
-    __use_no_semihosting_swi                 0x00000551   Thumb Code     2  use_no_semi.o(.text)
-    __semihosting_library_function           0x00000553   Thumb Code     0  indicate_semi.o(.text)
-    InitI2C                                  0x00000555   Thumb Code    98  i2c.o(i.InitI2C)
-    PORTC_PORTD_IRQHandler                   0x000005c1   Thumb Code    78  main.o(i.PORTC_PORTD_IRQHandler)
-    SysTick_Handler                          0x0000061d   Thumb Code   150  main.o(i.SysTick_Handler)
-    SystemInit                               0x000006c5   Thumb Code    14  system_mkl46z4.o(i.SystemInit)
-    SystemInitHook                           0x000006d9   Thumb Code     2  system_mkl46z4.o(i.SystemInitHook)
-    configMMA84512Q                          0x00000715   Thumb Code    72  i2c.o(i.configMMA84512Q)
-    initLED_GREEN                            0x0000075d   Thumb Code    40  led_sw1.o(i.initLED_GREEN)
-    initLED_RED                              0x00000791   Thumb Code    40  led_sw1.o(i.initLED_RED)
-    initSW1                                  0x000007c5   Thumb Code    66  led_sw1.o(i.initSW1)
-    initSW2                                  0x00000819   Thumb Code    66  led_sw1.o(i.initSW2)
-    main                                     0x0000086d   Thumb Code    28  main.o(i.main)
-    recieve                                  0x00000889   Thumb Code   164  i2c.o(i.recieve)
-    transmit                                 0x00000931   Thumb Code   124  i2c.o(i.transmit)
-    writeI2C                                 0x000009b1   Thumb Code    20  i2c.o(i.writeI2C)
-    Region$$Table$$Base                      0x000009c8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000009d8   Number         0  anon$$obj.o(Region$$Table)
+    __aeabi_uidiv                            0x00000535   Thumb Code     0  aeabi_sdiv.o(.text)
+    __aeabi_uidivmod                         0x00000535   Thumb Code    20  aeabi_sdiv.o(.text)
+    __aeabi_idiv                             0x00000549   Thumb Code     0  aeabi_sdiv.o(.text)
+    __aeabi_idivmod                          0x00000549   Thumb Code   326  aeabi_sdiv.o(.text)
+    exit                                     0x0000068f   Thumb Code    16  exit.o(.text)
+    _sys_exit                                0x000006a1   Thumb Code     8  sys_exit.o(.text)
+    __I$use$semihosting                      0x000006ad   Thumb Code     0  use_no_semi.o(.text)
+    __use_no_semihosting_swi                 0x000006ad   Thumb Code     2  use_no_semi.o(.text)
+    __semihosting_library_function           0x000006af   Thumb Code     0  indicate_semi.o(.text)
+    PORTC_PORTD_IRQHandler                   0x000006b1   Thumb Code   200  main.o(i.PORTC_PORTD_IRQHandler)
+    SysTick_Handler                          0x0000078d   Thumb Code   186  main.o(i.SysTick_Handler)
+    SystemInit                               0x00000859   Thumb Code    14  system_mkl46z4.o(i.SystemInit)
+    SystemInitHook                           0x0000086d   Thumb Code     2  system_mkl46z4.o(i.SystemInitHook)
+    configMMA84512Q                          0x000008a1   Thumb Code    72  i2c.o(i.configMMA84512Q)
+    initI2C                                  0x000008e9   Thumb Code    96  i2c.o(i.initI2C)
+    initINT2                                 0x00000955   Thumb Code    94  i2c.o(i.initINT2)
+    initLED_GREEN                            0x000009c9   Thumb Code    52  led_sw_systick.o(i.initLED_GREEN)
+    initLED_RED                              0x00000a09   Thumb Code    52  led_sw_systick.o(i.initLED_RED)
+    initSW1                                  0x00000a49   Thumb Code    70  led_sw_systick.o(i.initSW1)
+    initSW2                                  0x00000a9d   Thumb Code    66  led_sw_systick.o(i.initSW2)
+    initSystick                              0x00000aed   Thumb Code    26  led_sw_systick.o(i.initSystick)
+    main                                     0x00000b11   Thumb Code    36  main.o(i.main)
+    receive                                  0x00000b35   Thumb Code   232  i2c.o(i.receive)
+    transmit                                 0x00000c21   Thumb Code   172  i2c.o(i.transmit)
+    writeI2C                                 0x00000cd1   Thumb Code     6  i2c.o(i.writeI2C)
+    Region$$Table$$Base                      0x00000cdc   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00000cec   Number         0  anon$$obj.o(Region$$Table)
     msTicks1                                 0x1fffe000   Data           4  main.o(.data)
     msTicks2                                 0x1fffe004   Data           4  main.o(.data)
     mode                                     0x1fffe008   Data           1  main.o(.data)
-    Image$$ARM_LIB_HEAP$$ZI$$Base            0x1fffe00c   Number         0  anon$$obj.o ABSOLUTE
-    Image$$ARM_LIB_HEAP$$ZI$$Limit           0x1fffe40c   Number         0  anon$$obj.o ABSOLUTE
+    SystemCoreClock                          0x1fffe00c   Data           4  system_mkl46z4.o(.data)
+    Image$$ARM_LIB_HEAP$$ZI$$Base            0x1fffe010   Number         0  anon$$obj.o ABSOLUTE
+    Image$$ARM_LIB_HEAP$$ZI$$Limit           0x1fffe410   Number         0  anon$$obj.o ABSOLUTE
     Image$$ARM_LIB_STACK$$ZI$$Limit          0x20006000   Number         0  anon$$obj.o ABSOLUTE
 
 
@@ -489,114 +501,120 @@ Memory Map of the image
 
   Image Entry point : 0x00000499
 
-  Load Region LR_m_text (Base: 0x00000000, Size: 0x000009e4, Max: 0x00040000, ABSOLUTE)
+  Load Region LR_m_text (Base: 0x00000000, Size: 0x00000cfc, Max: 0x00040000, ABSOLUTE)
 
     Execution Region VECTOR_ROM (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000000c0, Max: 0x00000200, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000000c0   Data   RO          170    RESET               startup_mkl46z4.o
+    0x00000000   0x00000000   0x000000c0   Data   RO          173    RESET               startup_mkl46z4.o
 
 
     Execution Region ER_m_flash_config (Exec base: 0x00000400, Load base: 0x00000400, Size: 0x00000010, Max: 0x00000010, ABSOLUTE, FIXED)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000400   0x00000400   0x00000010   Data   RO          171    FlashConfig         startup_mkl46z4.o
+    0x00000400   0x00000400   0x00000010   Data   RO          174    FlashConfig         startup_mkl46z4.o
 
 
-    Execution Region ER_m_text (Exec base: 0x00000410, Load base: 0x00000410, Size: 0x000005c8, Max: 0x0003fbf0, ABSOLUTE)
+    Execution Region ER_m_text (Exec base: 0x00000410, Load base: 0x00000410, Size: 0x000008dc, Max: 0x0003fbf0, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000410   0x00000410   0x00000008   Code   RO          234  * !!!main             c_p.l(__main.o)
-    0x00000418   0x00000418   0x0000003c   Code   RO          416    !!!scatter          c_p.l(__scatter.o)
-    0x00000454   0x00000454   0x0000001a   Code   RO          418    !!handler_copy      c_p.l(__scatter_copy.o)
-    0x0000046e   0x0000046e   0x00000002   Code   RO          277    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          293    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          295    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          298    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          300    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          302    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          305    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          307    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          309    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          311    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          313    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          315    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          317    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          319    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          321    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          323    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          325    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          329    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          331    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          333    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000000   Code   RO          335    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
-    0x00000470   0x00000470   0x00000002   Code   RO          336    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
-    0x00000472   0x00000472   0x00000002   Code   RO          371    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          397    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          399    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          401    .ARM.Collect$$libshutdown$$00000006  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          404    .ARM.Collect$$libshutdown$$00000009  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          407    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          409    .ARM.Collect$$libshutdown$$0000000E  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000000   Code   RO          412    .ARM.Collect$$libshutdown$$00000011  c_p.l(libshutdown2.o)
-    0x00000474   0x00000474   0x00000002   Code   RO          413    .ARM.Collect$$libshutdown$$00000012  c_p.l(libshutdown2.o)
-    0x00000476   0x00000476   0x00000000   Code   RO          236    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
-    0x00000476   0x00000476   0x00000000   Code   RO          242    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
-    0x00000476   0x00000476   0x00000004   Code   RO          256    .ARM.Collect$$rtentry$$00000007  c_p.l(__rtentry7.o)
-    0x0000047a   0x0000047a   0x00000000   Code   RO          244    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
-    0x0000047a   0x0000047a   0x00000004   Code   RO          245    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
-    0x0000047e   0x0000047e   0x00000000   Code   RO          247    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
-    0x0000047e   0x0000047e   0x00000008   Code   RO          248    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
+    0x00000410   0x00000410   0x00000008   Code   RO          237  * !!!main             c_p.l(__main.o)
+    0x00000418   0x00000418   0x0000003c   Code   RO          419    !!!scatter          c_p.l(__scatter.o)
+    0x00000454   0x00000454   0x0000001a   Code   RO          421    !!handler_copy      c_p.l(__scatter_copy.o)
+    0x0000046e   0x0000046e   0x00000002   Code   RO          280    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          296    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          298    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          301    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          303    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          305    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          308    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          310    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          312    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          314    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          316    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          318    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          320    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          322    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          324    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          326    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          328    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          332    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          334    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          336    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000000   Code   RO          338    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
+    0x00000470   0x00000470   0x00000002   Code   RO          339    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
+    0x00000472   0x00000472   0x00000002   Code   RO          374    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          400    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          402    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          404    .ARM.Collect$$libshutdown$$00000006  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          407    .ARM.Collect$$libshutdown$$00000009  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          410    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          412    .ARM.Collect$$libshutdown$$0000000E  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000000   Code   RO          415    .ARM.Collect$$libshutdown$$00000011  c_p.l(libshutdown2.o)
+    0x00000474   0x00000474   0x00000002   Code   RO          416    .ARM.Collect$$libshutdown$$00000012  c_p.l(libshutdown2.o)
+    0x00000476   0x00000476   0x00000000   Code   RO          239    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
+    0x00000476   0x00000476   0x00000000   Code   RO          245    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
+    0x00000476   0x00000476   0x00000004   Code   RO          259    .ARM.Collect$$rtentry$$00000007  c_p.l(__rtentry7.o)
+    0x0000047a   0x0000047a   0x00000000   Code   RO          247    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
+    0x0000047a   0x0000047a   0x00000004   Code   RO          248    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
+    0x0000047e   0x0000047e   0x00000000   Code   RO          250    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
+    0x0000047e   0x0000047e   0x00000008   Code   RO          251    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
     0x00000486   0x00000486   0x00000002   PAD
-    0x00000488   0x00000488   0x00000004   Code   RO          257    .ARM.Collect$$rtentry$$00002718  c_p.l(__rtentry7.o)
-    0x0000048c   0x0000048c   0x00000002   Code   RO          284    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
-    0x0000048e   0x0000048e   0x00000000   Code   RO          347    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
-    0x0000048e   0x0000048e   0x00000004   Code   RO          348    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
-    0x00000492   0x00000492   0x00000006   Code   RO          349    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
-    0x00000498   0x00000498   0x0000009c   Code   RO          172  * .text               startup_mkl46z4.o
-    0x00000534   0x00000534   0x00000010   Code   RO          266    .text               c_p.l(exit.o)
-    0x00000544   0x00000544   0x0000000c   Code   RO          341    .text               c_p.l(sys_exit.o)
-    0x00000550   0x00000550   0x00000002   Code   RO          343    .text               c_p.l(use_no_semi.o)
-    0x00000552   0x00000552   0x00000000   Code   RO          345    .text               c_p.l(indicate_semi.o)
-    0x00000552   0x00000552   0x00000002   PAD
-    0x00000554   0x00000554   0x0000006c   Code   RO            5    i.InitI2C           i2c.o
-    0x000005c0   0x000005c0   0x0000005c   Code   RO          137    i.PORTC_PORTD_IRQHandler  main.o
-    0x0000061c   0x0000061c   0x000000a8   Code   RO          138    i.SysTick_Handler   main.o
-    0x000006c4   0x000006c4   0x00000014   Code   RO          179    i.SystemInit        system_mkl46z4.o
-    0x000006d8   0x000006d8   0x00000002   Code   RO          180    i.SystemInitHook    system_mkl46z4.o
-    0x000006da   0x000006da   0x00000002   PAD
-    0x000006dc   0x000006dc   0x00000018   Code   RO           77    i.__NVIC_ClearPendingIRQ  led_sw1.o
-    0x000006f4   0x000006f4   0x00000020   Code   RO           78    i.__NVIC_EnableIRQ  led_sw1.o
-    0x00000714   0x00000714   0x00000048   Code   RO            6    i.configMMA84512Q   i2c.o
-    0x0000075c   0x0000075c   0x00000034   Code   RO           79    i.initLED_GREEN     led_sw1.o
-    0x00000790   0x00000790   0x00000034   Code   RO           80    i.initLED_RED       led_sw1.o
-    0x000007c4   0x000007c4   0x00000054   Code   RO           81    i.initSW1           led_sw1.o
-    0x00000818   0x00000818   0x00000054   Code   RO           82    i.initSW2           led_sw1.o
-    0x0000086c   0x0000086c   0x0000001c   Code   RO          139    i.main              main.o
-    0x00000888   0x00000888   0x000000a8   Code   RO            7    i.recieve           i2c.o
-    0x00000930   0x00000930   0x00000080   Code   RO            8    i.transmit          i2c.o
-    0x000009b0   0x000009b0   0x00000018   Code   RO            9    i.writeI2C          i2c.o
-    0x000009c8   0x000009c8   0x00000010   Data   RO          414    Region$$Table       anon$$obj.o
+    0x00000488   0x00000488   0x00000004   Code   RO          260    .ARM.Collect$$rtentry$$00002718  c_p.l(__rtentry7.o)
+    0x0000048c   0x0000048c   0x00000002   Code   RO          287    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
+    0x0000048e   0x0000048e   0x00000000   Code   RO          350    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
+    0x0000048e   0x0000048e   0x00000004   Code   RO          351    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
+    0x00000492   0x00000492   0x00000006   Code   RO          352    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
+    0x00000498   0x00000498   0x0000009c   Code   RO          175  * .text               startup_mkl46z4.o
+    0x00000534   0x00000534   0x0000015a   Code   RO          233    .text               c_p.l(aeabi_sdiv.o)
+    0x0000068e   0x0000068e   0x00000010   Code   RO          269    .text               c_p.l(exit.o)
+    0x0000069e   0x0000069e   0x00000002   PAD
+    0x000006a0   0x000006a0   0x0000000c   Code   RO          344    .text               c_p.l(sys_exit.o)
+    0x000006ac   0x000006ac   0x00000002   Code   RO          346    .text               c_p.l(use_no_semi.o)
+    0x000006ae   0x000006ae   0x00000000   Code   RO          348    .text               c_p.l(indicate_semi.o)
+    0x000006ae   0x000006ae   0x00000002   PAD
+    0x000006b0   0x000006b0   0x000000dc   Code   RO           80    i.PORTC_PORTD_IRQHandler  main.o
+    0x0000078c   0x0000078c   0x000000cc   Code   RO           81    i.SysTick_Handler   main.o
+    0x00000858   0x00000858   0x00000014   Code   RO          182    i.SystemInit        system_mkl46z4.o
+    0x0000086c   0x0000086c   0x00000002   Code   RO          183    i.SystemInitHook    system_mkl46z4.o
+    0x0000086e   0x0000086e   0x00000002   PAD
+    0x00000870   0x00000870   0x00000018   Code   RO          121    i.__NVIC_ClearPendingIRQ  led_sw_systick.o
+    0x00000888   0x00000888   0x00000018   Code   RO          122    i.__NVIC_EnableIRQ  led_sw_systick.o
+    0x000008a0   0x000008a0   0x00000048   Code   RO            5    i.configMMA84512Q   i2c.o
+    0x000008e8   0x000008e8   0x0000006c   Code   RO            6    i.initI2C           i2c.o
+    0x00000954   0x00000954   0x00000074   Code   RO            7    i.initINT2          i2c.o
+    0x000009c8   0x000009c8   0x00000040   Code   RO          123    i.initLED_GREEN     led_sw_systick.o
+    0x00000a08   0x00000a08   0x00000040   Code   RO          124    i.initLED_RED       led_sw_systick.o
+    0x00000a48   0x00000a48   0x00000054   Code   RO          125    i.initSW1           led_sw_systick.o
+    0x00000a9c   0x00000a9c   0x00000050   Code   RO          126    i.initSW2           led_sw_systick.o
+    0x00000aec   0x00000aec   0x00000024   Code   RO          127    i.initSystick       led_sw_systick.o
+    0x00000b10   0x00000b10   0x00000024   Code   RO           82    i.main              main.o
+    0x00000b34   0x00000b34   0x000000ec   Code   RO            8    i.receive           i2c.o
+    0x00000c20   0x00000c20   0x000000b0   Code   RO            9    i.transmit          i2c.o
+    0x00000cd0   0x00000cd0   0x0000000c   Code   RO           10    i.writeI2C          i2c.o
+    0x00000cdc   0x00000cdc   0x00000010   Data   RO          417    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_m_data (Exec base: 0x1fffe000, Load base: 0x000009d8, Size: 0x0000000c, Max: 0x00007800, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x1fffe000   0x000009d8   0x00000009   Data   RW          140    .data               main.o
-
-
-    Execution Region ARM_LIB_HEAP (Exec base: 0x1fffe00c, Load base: 0x000009e4, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+    Execution Region RW_m_data (Exec base: 0x1fffe000, Load base: 0x00000cec, Size: 0x00000010, Max: 0x00007800, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x1fffe00c        -       0x00000400   Zero   RW            1    ARM_LIB_HEAP.bss    anon$$obj.o
+    0x1fffe000   0x00000cec   0x00000009   Data   RW           83    .data               main.o
+    0x1fffe009   0x00000cf5   0x00000003   PAD
+    0x1fffe00c   0x00000cf8   0x00000004   Data   RW          184    .data               system_mkl46z4.o
 
 
-    Execution Region ARM_LIB_STACK (Exec base: 0x20005c00, Load base: 0x000009e4, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+    Execution Region ARM_LIB_HEAP (Exec base: 0x1fffe010, Load base: 0x00000cfc, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x1fffe010        -       0x00000400   Zero   RW            1    ARM_LIB_HEAP.bss    anon$$obj.o
+
+
+    Execution Region ARM_LIB_STACK (Exec base: 0x20005c00, Load base: 0x00000cfc, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -610,14 +628,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       500         22          0          0          0     281872   i2c.o
-       328         72          0          0          0      10354   led_sw1.o
-       288         32          0          9          0       2003   main.o
+       720         48          0          0          0     289667   i2c.o
+       376         74          0          0          0       2880   led_sw_systick.o
+       460         38          0          9          0       2147   main.o
        156         70        208          0          0       1172   startup_mkl46z4.o
-        22          6          0          0          0        898   system_mkl46z4.o
+        22          6          0          4          0       1140   system_mkl46z4.o
 
     ----------------------------------------------------------------------
-      1296        202        224         12       2048     296299   Object Totals
+      1736        236        224         16       2048     297006   Object Totals
          0          0         16          0       2048          0   (incl. Generated)
          2          0          0          3          0          0   (incl. Padding)
 
@@ -631,6 +649,7 @@ Image component sizes
          8          4          0          0          0          0   __rtentry7.o
         60          8          0          0          0          0   __scatter.o
         26          0          0          0          0          0   __scatter_copy.o
+       346          0          0          0          0         92   aeabi_sdiv.o
         16          0          0          0          0         68   exit.o
          0          0          0          0          0          0   indicate_semi.o
          2          0          0          0          0          0   libinit.o
@@ -643,17 +662,17 @@ Image component sizes
          2          0          0          0          0         68   use_no_semi.o
 
     ----------------------------------------------------------------------
-       168         16          0          0          0        264   Library Totals
-         4          0          0          0          0          0   (incl. Padding)
+       516         16          0          0          0        356   Library Totals
+         6          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-       164         16          0          0          0        264   c_p.l
+       510         16          0          0          0        356   c_p.l
 
     ----------------------------------------------------------------------
-       168         16          0          0          0        264   Library Totals
+       516         16          0          0          0        356   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -662,15 +681,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1464        218        224         12       2048     295935   Grand Totals
-      1464        218        224         12       2048     295935   ELF Image Totals
-      1464        218        224         12          0          0   ROM Totals
+      2252        252        224         16       2048     296594   Grand Totals
+      2252        252        224         16       2048     296594   ELF Image Totals
+      2252        252        224         16          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 1688 (   1.65kB)
-    Total RW  Size (RW Data + ZI Data)              2060 (   2.01kB)
-    Total ROM Size (Code + RO Data + RW Data)       1700 (   1.66kB)
+    Total RO  Size (Code + RO Data)                 2476 (   2.42kB)
+    Total RW  Size (RW Data + ZI Data)              2064 (   2.02kB)
+    Total ROM Size (Code + RO Data + RW Data)       2492 (   2.43kB)
 
 ==============================================================================
 
