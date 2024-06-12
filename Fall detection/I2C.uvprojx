@@ -410,6 +410,16 @@
               <FileType>5</FileType>
               <FilePath>.\LED_SW_Systick.h</FilePath>
             </File>
+            <File>
+              <FileName>seg_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\seg_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>seg_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\seg_lcd.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

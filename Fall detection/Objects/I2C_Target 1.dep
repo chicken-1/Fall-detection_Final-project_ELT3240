@@ -9,7 +9,7 @@ I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x66611E55)
 I (.\RTE\Device\MKL46Z256VLL4\system_MKL46Z4.h)(0x66611FAD)
 I (I2C.h)(0x6669140E)
 F (.\I2C.h)(0x6669140E)()
-F (.\Main.c)(0x66694E34)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VLL4-I.\RTE\_Target_1-ID:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\Arm\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VLL4 -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Main.c)(0x6669657E)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VLL4-I.\RTE\_Target_1-ID:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\Arm\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VLL4 -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\RTE\Device\MKL46Z256VLL4\MKL46Z4.h)(0x66611FAD)
 I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm0plus.h)(0x66611E55)
 I (D:\Keil_v5\ARM\ARM_Compiler_5.06u7\include\stdint.h)(0x5E8E4AD2)
@@ -18,6 +18,8 @@ I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x66611E55)
 I (.\RTE\Device\MKL46Z256VLL4\system_MKL46Z4.h)(0x66611FAD)
 I (I2C.h)(0x6669140E)
 I (LED_SW_Systick.h)(0x6666CAD8)
+I (seg_lcd.h)(0x666964EC)
+I (D:\Keil_v5\ARM\ARM_Compiler_5.06u7\include\stdbool.h)(0x5E8E4AD2)
 F (.\LED_SW_Systick.c)(0x66694E34)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VLL4-I.\RTE\_Target_1-ID:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\Arm\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VLL4 -D_RTE_-o .\objects\led_sw_systick.o --omf_browse .\objects\led_sw_systick.crf --depend .\objects\led_sw_systick.d)
 I (.\RTE\Device\MKL46Z256VLL4\MKL46Z4.h)(0x66611FAD)
 I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm0plus.h)(0x66611E55)
@@ -27,6 +29,16 @@ I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x66611E55)
 I (.\RTE\Device\MKL46Z256VLL4\system_MKL46Z4.h)(0x66611FAD)
 I (LED_SW_Systick.h)(0x6666CAD8)
 F (.\LED_SW_Systick.h)(0x6666CAD8)()
+F (.\seg_lcd.c)(0x666964EC)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MKL46Z256VLL4-I.\RTE\_Target_1-ID:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\Arm\Packs\NXP\MKL46Z4_DFP\10.0.3-D__UVISION_VERSION="539" -D_RTE_ -DCPU_MKL46Z256VLL4 -D_RTE_-o .\objects\seg_lcd.o --omf_browse .\objects\seg_lcd.crf --depend .\objects\seg_lcd.d)
+I (seg_lcd.h)(0x666964EC)
+I (.\RTE\Device\MKL46Z256VLL4\MKL46Z4.h)(0x66611FAD)
+I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm0plus.h)(0x66611E55)
+I (D:\Keil_v5\ARM\ARM_Compiler_5.06u7\include\stdint.h)(0x5E8E4AD2)
+I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_compiler.h)(0x66611E55)
+I (D:\Arm\Packs\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x66611E55)
+I (.\RTE\Device\MKL46Z256VLL4\system_MKL46Z4.h)(0x66611FAD)
+I (D:\Keil_v5\ARM\ARM_Compiler_5.06u7\include\stdbool.h)(0x5E8E4AD2)
+F (.\seg_lcd.h)(0x666964EC)()
 F (RTE/Device/MKL46Z256VLL4/MKL46Z256xxx4_flash.scf)(0x66611FAD)()
 F (RTE/Device/MKL46Z256VLL4/MKL46Z256xxx4_ram.scf)(0x66611FAD)()
 F (RTE/Device/MKL46Z256VLL4/MKL46Z4.h)(0x66611FAD)()

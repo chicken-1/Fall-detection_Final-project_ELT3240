@@ -27,16 +27,6 @@ Project File Date:  06/12/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin'
 Rebuild target 'Target 1'
-compiling Main.c...
-Main.c(101): warning:  #177-D: variable "data"  was declared but never referenced
-  	uint8_t data;
-Main.c: 1 warning, 0 errors
-compiling I2C.c...
-I2C.c(145): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_ClearPendingIRQ(31);											//clear NVIC any pending interrupts on PORTC_D
-I2C.c(146): warning:  #188-D: enumerated type mixed with another type
-  	NVIC_EnableIRQ(31);														//enable NVIC interrupts source for PORTC_D
-I2C.c: 2 warnings, 0 errors
 compiling LED_SW_Systick.c...
 LED_SW_Systick.c(26): warning:  #188-D: enumerated type mixed with another type
   	NVIC_ClearPendingIRQ(31);											//clear NVIC any pending interrupts on PORTC_D
@@ -47,15 +37,31 @@ LED_SW_Systick.c(36): warning:  #188-D: enumerated type mixed with another type
 LED_SW_Systick.c(37): warning:  #188-D: enumerated type mixed with another type
   	NVIC_EnableIRQ(31);														// enable NVIC interrupts source for PORTC_D
 LED_SW_Systick.c: 4 warnings, 0 errors
+compiling I2C.c...
+I2C.c(145): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_ClearPendingIRQ(31);											//clear NVIC any pending interrupts on PORTC_D
+I2C.c(146): warning:  #188-D: enumerated type mixed with another type
+  	NVIC_EnableIRQ(31);														//enable NVIC interrupts source for PORTC_D
+I2C.c: 2 warnings, 0 errors
+compiling Main.c...
+seg_lcd.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif /* SOURCES_SEG_LCD_H_ */
+Main.c: 1 warning, 0 errors
 assembling startup_MKL46Z4.s...
+compiling seg_lcd.c...
+seg_lcd.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif /* SOURCES_SEG_LCD_H_ */
+seg_lcd.c(302): warning:  #1-D: last line of file ends without a newline
+  }
+seg_lcd.c: 2 warnings, 0 errors
 compiling system_MKL46Z4.c...
 linking...
 .\Objects\I2C.axf: Warning: L6914W: option ro-base ignored when using --scatter.
 .\Objects\I2C.axf: Warning: L6914W: option rw-base ignored when using --scatter.
 .\Objects\I2C.axf: Warning: L6340W: options first and last are ignored for link type of scattered
-Program Size: Code=2252 RO-data=224 RW-data=16 ZI-data=2048  
+Program Size: Code=2720 RO-data=224 RW-data=24 ZI-data=2048  
 Finished: 0 information, 3 warning and 0 error messages.
-".\Objects\I2C.axf" - 0 Error(s), 10 Warning(s).
+".\Objects\I2C.axf" - 0 Error(s), 12 Warning(s).
 
 <h2>Software Packages used:</h2>
 

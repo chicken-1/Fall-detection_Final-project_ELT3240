@@ -1,6 +1,7 @@
 #include "MKL46Z4.h"
 #include "I2C.h"
 #include "LED_SW_Systick.h" 
+#include "seg_lcd.h"
 
 uint32_t volatile msTicks1 = 0;
 uint32_t volatile msTicks2 = 0;
@@ -20,14 +21,17 @@ void SysTick_Handler()
 		if (msTicks1 == 1000)
 		{
 			PTD->PTOR |= 1 << 5;         // tongle led green
+			slcd_print_on_msg();
 			msTicks1 = 0;
 		}
+		PTE->PDOR |= 1 << 29;					// turn off led red
 	} else if (mode == FALL_DETECTED_MODE)
 	{
 		msTicks2++;
 		if (msTicks2 == 500)
 		{
 			PTE->PTOR |= 1 << 29;				//tongle led red
+			slcd_print_fall_msg();
 			msTicks2 = 0;
 		}
 		msTicks1++;
@@ -40,6 +44,7 @@ void SysTick_Handler()
 	{
 		PTD->PDOR |= 1 << 5; 	// turn led green off
 		PTE->PDOR |= 1 << 29;	// turn led red off
+		slcd_clear_all();
 	}
 	
 }
@@ -57,11 +62,9 @@ void PORTC_PORTD_IRQHandler()
 		} else if (mode == NORMAL_MODE)
 		{
 			mode = STOP_MODE;
-			//SysTick->CTRL &= 0;
 		} else if (mode == FALL_DETECTED_MODE)
 		{
 			mode = STOP_MODE;
-			//SysTick->CTRL &=0;
 		}
 		PTD->PCOR |= 1 << 5;  
 		PORTC->PCR[3] |=   1 << 24; 	// clear interrupt
@@ -98,7 +101,7 @@ int main(void)
 	initI2C();
 	initINT2();
 	configMMA84512Q();
-	uint8_t data;
+	slcd_init();
 	while(1)
 	{
 		//data = receive(0x0D);
